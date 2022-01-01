@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { Formik } from 'formik';
 import { Text, Card, Button, Icon, Input } from 'react-native-elements';
+import cloudImage from '../cloud.png'
+
 
 export default function HomeScreen () {
   const [isShowWeather, setIsShowWeather] = useState(false);
@@ -17,12 +19,18 @@ export default function HomeScreen () {
     .then(response => response.json())
     .then(json => {
       json.map(el => {
-        if (el.name == 'Zamość') {
+        if (el.name.toUpperCase() == values.title.toUpperCase()) {
           setWeatherDesc(el.description)
           setWeatherIco(el.icon)
           setWeatherName(el.name)
           setWeatherTemp(el.temp)
-        }
+        } 
+        // else {
+        //   setWeatherName('Spróbuj wyszukać jeszcze raz')
+        //   setWeatherDesc('Nie znaleziono miasta')
+        //   setWeatherIco()
+        //   setWeatherTemp()
+        // }
       })
     })
   }
@@ -54,7 +62,7 @@ export default function HomeScreen () {
             <Image
               style={style.image}
               resizeMode="cover"
-              source={{ uri: 'https://uifaces.co/our-content/donated/1H_7AxP0.jpg' }}
+              source={cloudImage }
             />
             <Text style={style.name}>{weatherDesc}</Text>
             <Text style={style.name}>{weatherTemp}</Text>
